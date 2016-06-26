@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tweet of mine</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+</head>
+<body>
+    <h1>我的微博</h1>
+    <h3>用户名：{{ user.username }}</h3>
+    <h3>个性签名：{{ user.signature }}</h3>
+    <h3>性别：{{ user.sex }}</h3>
+    <h3>访问量：{{ user.visit }}</h3>
+    <form class="pure-form" action="/tweet/add/{{user.id}}" method="POST">
+        <textarea name="content" class="form-control" placeholder="发点什么"></textarea>
+        <br>
+        <button class="pure-button pure-button-primary" type="submit">添加</button>
+    </form>
+    <hr>
+    {% for tweet in tweets %}
+        <p>
+            <a href="/tweet/update/{{tweet.id}}">编辑</a>
+            <a href="/tweet/delete/{{tweet.id}}">删除</a>
+            {{ tweet.user.username }}的微博:  {{ tweet.created_time }} : {{ tweet.content }}
+        </p>
+    {% endfor %}
+    <hr>
+    <h2>想看看其他人？</h2>
+    {% for u in users %}
+        <p>
+            <a href="/tweet/others/{{u.id}}">{{ u.username }}</a>
+        </p>
+    {% endfor %}
+</body>
+</html>
